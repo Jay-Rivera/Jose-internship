@@ -54,7 +54,7 @@ const HotCollections = () => {
           {posts.length ? (
             <OwlCarousel {...options}>
               {posts.map((post, index) => (
-                <div className="nft_coll">
+                <div className="nft_coll" key={index}>
                   <div className="nft_wrap">
                     <Link to="/item-details">
                       <img
