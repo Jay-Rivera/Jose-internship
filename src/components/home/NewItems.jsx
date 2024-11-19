@@ -8,6 +8,7 @@ import Skeleton from "../UI/Skeleton";
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
+  let cancelId;
 
   async function getNewItemsData() {
     const { data } = await axios.get(
@@ -41,6 +42,36 @@ const NewItems = () => {
     },
   };
 
+  cancelId = requestAnimationFrame(countDownTimer);
+  function countDownTimer(expiryDate) {
+    let countDownMilli = expiryDate - Date.now();
+    let seconds = countDownMilli / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+
+    let hourText = Math.floor(hours % 60);
+    let minuteText = Math.floor(minutes % 60);
+    let secondText = Math.floor(seconds % 60);
+
+    if (expiryDate === null) {
+      return;
+    }
+    if (countDownMilli < 0) {
+      cancelAnimationFrame(cancelId);
+      cancelId = null;
+      return <div className="de_countdown">EXPIRED</div>;
+    } else {
+      return (
+        <div className="de_countdown">
+          {hourText}h {minuteText}m {secondText}s
+        </div>
+      );
+    }
+    if (cancelId) {
+      cancelId = requestAnimationFrame(countDownTimer);
+    }
+  }
+
   return (
     <section id="section-items" className="no-bottom">
       <div className="container">
@@ -66,7 +97,7 @@ const NewItems = () => {
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
-                  <div className="de_countdown">5h 30m 32s</div>
+                  {countDownTimer(item.expiryDate)}
                   <div className="nft__item_wrap">
                     <div className="nft__item_extra">
                       <div className="nft__item_buttons">
