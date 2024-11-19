@@ -8,7 +8,6 @@ import Skeleton from "../UI/Skeleton";
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
-  let cancelId;
 
   async function getNewItemsData() {
     const { data } = await axios.get(
@@ -42,34 +41,45 @@ const NewItems = () => {
     },
   };
 
-  cancelId = requestAnimationFrame(countDownTimer);
-  function countDownTimer(expiryDate) {
-    let countDownMilli = expiryDate - Date.now();
-    let seconds = countDownMilli / 1000;
-    let minutes = seconds / 60;
-    let hours = minutes / 60;
+  const CountdownTimer = ({ expiryDate }) => {
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
 
-    let hourText = Math.floor(hours % 60);
-    let minuteText = Math.floor(minutes % 60);
-    let secondText = Math.floor(seconds % 60);
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const updatedTimeLeft = calculateTimeLeft(expiryDate);
+        setTimeLeft(updatedTimeLeft);
 
-    if (expiryDate === null) {
-      return;
-    }
-    if (countDownMilli < 0) {
-      cancelAnimationFrame(cancelId);
-      cancelId = null;
+        if (updatedTimeLeft.total <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }, [expiryDate]);
+
+    if (timeLeft.total <= 0) {
       return <div className="de_countdown">EXPIRED</div>;
-    } else {
-      return (
-        <div className="de_countdown">
-          {hourText}h {minuteText}m {secondText}s
-        </div>
-      );
     }
-    if (cancelId) {
-      cancelId = requestAnimationFrame(countDownTimer);
-    }
+
+    return (
+      <div className="de_countdown">
+        {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+      </div>
+    );
+  };
+
+  function calculateTimeLeft(expiryDate) {
+    const countDownMilli = expiryDate - Date.now();
+    const seconds = Math.floor((countDownMilli / 1000) % 60);
+    const minutes = Math.floor((countDownMilli / 1000 / 60) % 60);
+    const hours = Math.floor((countDownMilli / 1000 / 60 / 60) % 24);
+
+    return {
+      total: countDownMilli,
+      hours,
+      minutes,
+      seconds,
+    };
   }
 
   return (
@@ -97,7 +107,11 @@ const NewItems = () => {
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
-                  {countDownTimer(item.expiryDate)}
+                  {item.expiryDate === null ? (
+                    <></>
+                  ) : (
+                    <CountdownTimer expiryDate={item.expiryDate} />
+                  )}
                   <div className="nft__item_wrap">
                     <div className="nft__item_extra">
                       <div className="nft__item_buttons">
