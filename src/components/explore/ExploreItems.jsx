@@ -5,6 +5,8 @@ import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
 
 const ExploreItems = () => {
+  const [ExploreItems, setExploreItems] = useState([]);
+
   return (
     <>
       <div>
