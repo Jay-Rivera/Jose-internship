@@ -196,7 +196,7 @@ const NewItems = () => {
                       </Link>
                       <Skeleton width="100px" height="20px" />
                       <div className="nft__item_like">
-                        <Skeleton widht="30px" height="15px" />
+                        <Skeleton width="30px" height="15px" />
                       </div>
                     </div>
                   </div>;
