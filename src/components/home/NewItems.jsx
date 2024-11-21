@@ -5,6 +5,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import Skeleton from "../UI/Skeleton";
+import CountDownTimer from "../UI/CountDownTimer";
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
@@ -41,46 +42,46 @@ const NewItems = () => {
     },
   };
 
-  const CountdownTimer = ({ expiryDate }) => {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
+  // const CountdownTimer = ({ expiryDate }) => {
+  //   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        const updatedTimeLeft = calculateTimeLeft(expiryDate);
-        setTimeLeft(updatedTimeLeft);
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       const updatedTimeLeft = calculateTimeLeft(expiryDate);
+  //       setTimeLeft(updatedTimeLeft);
 
-        if (updatedTimeLeft.total <= 0) {
-          clearInterval(interval);
-        }
-      }, 1000);
+  //       if (updatedTimeLeft.total <= 0) {
+  //         clearInterval(interval);
+  //       }
+  //     }, 1000);
 
-      return () => clearInterval(interval);
-    }, [expiryDate]);
+  //     return () => clearInterval(interval);
+  //   }, [expiryDate]);
 
-    if (timeLeft.total <= 0) {
-      return <div className="de_countdown">EXPIRED</div>;
-    }
+  //   if (timeLeft.total <= 0) {
+  //     return <div className="de_countdown">EXPIRED</div>;
+  //   }
 
-    return (
-      <div className="de_countdown">
-        {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
-      </div>
-    );
-  };
+  //   return (
+  //     <div className="de_countdown">
+  //       {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+  //     </div>
+  //   );
+  // };
 
-  function calculateTimeLeft(expiryDate) {
-    const countDownMilli = expiryDate - Date.now();
-    const seconds = Math.floor((countDownMilli / 1000) % 60);
-    const minutes = Math.floor((countDownMilli / 1000 / 60) % 60);
-    const hours = Math.floor((countDownMilli / 1000 / 60 / 60) % 24);
+  // function calculateTimeLeft(expiryDate) {
+  //   const countDownMilli = expiryDate - Date.now();
+  //   const seconds = Math.floor((countDownMilli / 1000) % 60);
+  //   const minutes = Math.floor((countDownMilli / 1000 / 60) % 60);
+  //   const hours = Math.floor((countDownMilli / 1000 / 60 / 60) % 24);
 
-    return {
-      total: countDownMilli,
-      hours,
-      minutes,
-      seconds,
-    };
-  }
+  //   return {
+  //     total: countDownMilli,
+  //     hours,
+  //     minutes,
+  //     seconds,
+  //   };
+  // }
 
   return (
     <section id="section-items" className="no-bottom">
@@ -110,7 +111,7 @@ const NewItems = () => {
                   {item.expiryDate === null ? (
                     <></>
                   ) : (
-                    <CountdownTimer expiryDate={item.expiryDate} />
+                    <CountDownTimer expiryDate={item.expiryDate} />
                   )}
                   <div className="nft__item_wrap">
                     <div className="nft__item_extra">
