@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
 
-const AuthorItems = ({ authorData, isLoading }) => {
+const AuthorItems = ({ authorData }) => {
   return (
     <div className="de_tab_content">
       <div className="tab-1">
