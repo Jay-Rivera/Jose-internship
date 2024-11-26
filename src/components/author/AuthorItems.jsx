@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
 
-const AuthorItems = ({ authorData, isLoading }) => {
+const AuthorItems = ({ authorData }) => {
   return (
     <div className="de_tab_content">
       <div className="tab-1">
@@ -39,7 +39,7 @@ const AuthorItems = ({ authorData, isLoading }) => {
                         </div>
                       </div>
                     </div>
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${nft.nftId}`}>
                       <img
                         src={nft.nftImage}
                         className="lazy nft__item_preview"
@@ -48,7 +48,7 @@ const AuthorItems = ({ authorData, isLoading }) => {
                     </Link>
                   </div>
                   <div className="nft__item_info">
-                    <Link to="/item-details">
+                    <Link to={`/item-details/${nft.nftId}`}>
                       <h4>{nft.title}</h4>
                     </Link>
                     <div className="nft__item_price">{nft.price} ETH</div>
