@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init({ duration: 1000, easing: "ease", throttleDelay: 99 });
 
 const TopSellers = () => {
   const [topSellers, setTopSellers] = useState([]);
@@ -20,15 +23,15 @@ const TopSellers = () => {
 
   return (
     <section id="section-popular" className="pb-5">
-      <div className="container">
+      <div className="container" data-aos="fade-up">
         <div className="row">
           <div className="col-lg-12">
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up">
               <h2>Top Sellers</h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <div className="col-md-12">
+          <div className="col-md-12" data-aos="fade-up" data-aos-delay="500">
             {topSellers.length ? (
               <ol className="author_list">
                 {topSellers.map((seller, index) => (

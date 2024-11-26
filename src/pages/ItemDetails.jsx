@@ -18,7 +18,6 @@ const ItemDetails = () => {
     );
     setItemData(data);
     setIsLoading(false);
-    console.log(data);
   }
 
   useEffect(() => {

@@ -6,6 +6,11 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import Skeleton from "../UI/Skeleton";
 import CountDownTimer from "../UI/CountDownTimer";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init({ duration: 1000, easing: "ease", throttleDelay: 99 });
+
+// data-aos="fade-up" data-aos-delay="500"
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
@@ -42,50 +47,9 @@ const NewItems = () => {
     },
   };
 
-  // const CountdownTimer = ({ expiryDate }) => {
-  //   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
-
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       const updatedTimeLeft = calculateTimeLeft(expiryDate);
-  //       setTimeLeft(updatedTimeLeft);
-
-  //       if (updatedTimeLeft.total <= 0) {
-  //         clearInterval(interval);
-  //       }
-  //     }, 1000);
-
-  //     return () => clearInterval(interval);
-  //   }, [expiryDate]);
-
-  //   if (timeLeft.total <= 0) {
-  //     return <div className="de_countdown">EXPIRED</div>;
-  //   }
-
-  //   return (
-  //     <div className="de_countdown">
-  //       {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
-  //     </div>
-  //   );
-  // };
-
-  // function calculateTimeLeft(expiryDate) {
-  //   const countDownMilli = expiryDate - Date.now();
-  //   const seconds = Math.floor((countDownMilli / 1000) % 60);
-  //   const minutes = Math.floor((countDownMilli / 1000 / 60) % 60);
-  //   const hours = Math.floor((countDownMilli / 1000 / 60 / 60) % 24);
-
-  //   return {
-  //     total: countDownMilli,
-  //     hours,
-  //     minutes,
-  //     seconds,
-  //   };
-  // }
-
   return (
     <section id="section-items" className="no-bottom">
-      <div className="container">
+      <div className="container" data-aos="fade-up">
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
